@@ -1,0 +1,24 @@
+table {
+    width: 100%;
+  }
+
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+
+
+  body {
+    margin: 0;
+    padding: 0;
+    background-image: url('https://media.istockphoto.com/id/1021671078/es/foto/trabajador-de-la-salud-tomando-notas-desde-paciente-masculino-senior.jpg?s=1024x1024&w=is&k=20&c=mdTw2yWKehKxe1a3rRNRzOj8vr9cCUD8_QXggmVK0rM=');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh; /* Establece la altura al 100% del viewport height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white; /* Ajusta el color del texto según sea necesario para que sea legible en tu imagen de fondo */
+}

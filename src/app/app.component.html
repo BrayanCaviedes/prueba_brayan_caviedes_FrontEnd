@@ -1,76 +1,101 @@
+<body>
+<div style="width: 80%; margin: 40px auto">
+  <h1 style="color: black;">Lista de pacientes</h1>
 
-<div class="container-lg mt-5 pt-5">
-  <div class="row justify-content-center">
+  <button mat-raised-button color="primary" (click)="dialogoNuevoPaciente()">Nuevo Paciente</button>
 
-    <div class="col-12 col-xl-4 col-md-6">
+  <!------------------------------------------------Filtro ------------------------------------------------------>
+    <mat-form-field>
+      <mat-label>Paciente</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Buscar" #input style="color: black;">
+    </mat-form-field>
+  <!------------------------------------------------Filtro ------------------------------------------------------>
+   
 
-      <div class="card">
-        <div class="card-header">
-          LISTA DE PACIENTES
-        </div>
-        <div class="card-body">
-          <form [formGroup]="formularioPacientes">
 
-            <div class="input-group mb-3">
-              <div class="col-12">
-                <input type="text" class="form-control" placeholder="Ingresar numero documento" formControlName="numeroDocumento">
-              </div>
-              <div class="col-12">
-                <input type="text" class="form-control" placeholder="Ingresar tipo documento" formControlName="tipoDocumento">
-              </div>
-              <div class="col-12">
-                <input type="text" class="form-control" placeholder="Ingresar nombre" formControlName="nombre">
-              </div>
-              <div class="col-12">
-                <input type="text" class="form-control" placeholder="Ingresar apellido" formControlName="apellido">
-              </div>
-              <div class="col-12">
-                <input type="text" class="form-control" placeholder="Ingresar correo electronico" formControlName="correoElectronico">
-              </div>
-              <div class="col-12">
-                <input type="text" class="form-control" placeholder="Ingresar telefono" formControlName="telefono">
-              </div>
-              <div class="col-12">
-                <input type="text" class="form-control" placeholder="Ingresar fecha nacimiento" formControlName="fechaNacimiento">
-              </div>
-              <div class="col-12">
-                <input type="text" class="form-control" placeholder="Ingresar estado afiliacion" formControlName="estadoAfiliacion">
-              </div>
-              <br> <br>
-            
-              <button class="btn btn-primary" type="button" [disabled]="formularioPacientes.invalid"
-              (click)="agregarPacientes()"
-              >Agregar</button>
-            </div>
 
-          </form>
+    <!------------------------------------------------Tabla ------------------------------------------------------>
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" style="background-color: rgba(255, 255, 255, 0.2);">
+    
+        <!-- Numero Documento Column -->
+        <ng-container matColumnDef="numeroDocumento">
+          <th mat-header-cell *matHeaderCellDef> N° Documento </th>
+          <td mat-cell *matCellDef="let paciente"> {{paciente.numeroDocumento}} </td>
+        </ng-container>
+    
+        <!-- Tipo Documento Column -->
+        <ng-container matColumnDef="tipoDocumento">
+          <th mat-header-cell *matHeaderCellDef> Tipo Documento </th>
+          <td mat-cell *matCellDef="let paciente"> {{paciente.tipoDocumento}} </td>
+        </ng-container>
+    
+        <!-- Nombre Completo Column -->
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef> Nombre Completo </th>
+          <td mat-cell *matCellDef="let paciente"> {{paciente.nombre}} {{paciente.apellido}} </td>
+        </ng-container>
+    
+        <!-- Correo Electronico Column -->
+        <ng-container matColumnDef="correoElectronico">
+          <th mat-header-cell *matHeaderCellDef> Correo Electronico </th>
+          <td mat-cell *matCellDef="let paciente"> {{paciente.correoElectronico}} </td>
+        </ng-container>
 
-          <ul class="list-group">
-            <li class="list-group-item" *ngFor="let paciente of listaPacientes">
-              <div class="d-flex justify-content-between">
-              
-                <div>
-                  <label><strong>Nombre Completo:</strong> {{paciente.nombre}} {{paciente.apellido}}</label>
-                </div>
-                <div>
-                  <label><strong>Estado Afiliación:</strong> {{paciente.estadoAfiliacion}}</label>
-                </div>
-                
-                    <button class="btn btn-danger btn-sm" type="button"
-                    (click)="eliminarPacientes(paciente)"
-                    >
-                    Eliminar
-                  </button>
-                </div>
-            </li>
-          </ul>
+        <!-- Telefono Column -->
+        <ng-container matColumnDef="telefono">
+          <th mat-header-cell *matHeaderCellDef> Telefono </th>
+          <td mat-cell *matCellDef="let paciente"> {{paciente.telefono}} </td>
+        </ng-container>
 
-        </div>
+         <!-- Fecha Nacimiento Column -->
+         <ng-container matColumnDef="fechaNacimiento">
+          <th mat-header-cell *matHeaderCellDef> Fecha Nacimiento </th>
+          <td mat-cell *matCellDef="let paciente"> {{paciente.fechaNacimiento | date: 'dd/MM/YYYY'}} </td>
+        </ng-container>
 
-      </div>
+        <!-- Estado Afiliación Column -->
+        <ng-container matColumnDef="estadoAfiliacion">
+          <th mat-header-cell *matHeaderCellDef> Estado Afiliación </th>
+          <td mat-cell *matCellDef="let paciente"> {{paciente.estadoAfiliacion}} </td>
+        </ng-container>
 
+
+
+        <!-- Iconos de las Column -->
+      <ng-container matColumnDef="Acciones">
+        <th mat-header-cell *matHeaderCellDef style="width: 80px;">    </th>
+
+        <td mat-cell *matCellDef="let paciente">
+          <button mat-icon-button color="primary" (click)="dialogoEditarPaciente(paciente)">
+            <mat-icon>edit</mat-icon>
+          </button>
+
+          <button mat-icon-button color="warn" (click)="dialogoEliminarPacientes(paciente)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+    
+        <tr mat-header-row *matHeaderRowDef="listaPacientes"></tr>
+        <tr mat-row *matRowDef="let row; columns: listaPacientes;"></tr>
+      </table>
+    
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                     showFirstLastButtons
+                     aria-label="Select page of periodic elements" style="background-color: rgba(255, 255, 255, 0.2);">
+      </mat-paginator>
     </div>
+      <!------------------------------------------------Tabla ------------------------------------------------------>
 
-  </div>
+
+
 
 </div>
+
+<footer style="text-align: center; margin-top: 20px; color: black;">
+  <p>&copy; 2023 Brayan Caviedes Barrios. All rights reserved.</p>
+</footer>
+
+</body>

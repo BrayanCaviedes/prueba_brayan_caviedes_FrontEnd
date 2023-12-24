@@ -9,22 +9,29 @@ import { Pacientes } from '../Interface/pacientes';
   providedIn: 'root'
 })
 export class PacientesService {
-  private endPoint:string = environment.endPoint;
-  private apiUrl:string = this.endPoint + "Pacientes/";
-
-  constructor(private http:HttpClient) { }
-
-  getList():Observable<Pacientes[]>{
-    return this.http.get<Pacientes[]>(`${this.apiUrl}Lista`);
-}
-
-  add(request:Pacientes):Observable<Pacientes>{
-    return this.http.post<Pacientes>(`${this.apiUrl}Agregar`, request);
-}
 
 
-delete(numeroDocumento:number):Observable<void>{
-  return this.http.delete<void>(`${this.apiUrl}eliminar/${numeroDocumento}`);
-}
+    private endPoint:string = environment.endPoint;
+    private apiUrl:string = this.endPoint + "Pacientes/";
+
+
+
+    constructor(private http:HttpClient) { }
+
+    getList():Observable<Pacientes[]>{
+      return this.http.get<Pacientes[]>(`${this.apiUrl}Lista`);
+  }
+
+    add(request:Pacientes):Observable<Pacientes>{
+      return this.http.post<Pacientes>(`${this.apiUrl}Agregar`, request);
+  }
+
+    update(id:number,request:Pacientes):Observable<Pacientes>{
+      return this.http.put<Pacientes>(`${this.apiUrl}Actualizar/${id}`, request);
+  }
+
+    delete(id:number):Observable<void>{
+      return this.http.delete<void>(`${this.apiUrl}Eliminar/${id}`);
+    }
 
 }

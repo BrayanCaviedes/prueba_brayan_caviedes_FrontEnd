@@ -1,0 +1,91 @@
+<h1 mat-dialog-title>{{tituloAccion}} Pacientes</h1>
+<div mat-dialog-content>
+
+  <form [formGroup]="formPacientes">
+
+    <mat-grid-list cols="1" rowHeight="80px">
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Numero Documento</mat-label>
+          <input matInput formControlName="numeroDocumento" autocomplete="off" type="number">
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Tipo Documento</mat-label>
+          <mat-select formControlName="tipoDocumento">
+            <mat-option value="CC">Cedula de Ciudadania</mat-option>
+            <mat-option value="TI">Tarjeta de Identidad</mat-option>
+            <mat-option value="RC">Registro Civil</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="nombre" autocomplete="off">
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Apellido</mat-label>
+          <input matInput formControlName="apellido" autocomplete="off">
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>correoElectronico</mat-label>
+          <input matInput formControlName="correoElectronico" autocomplete="off">
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Telefono</mat-label>
+          <input matInput formControlName="telefono" autocomplete="off" type="number">
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Fecha Nacimiento</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="fechaNacimiento">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Estado Afiliacion</mat-label>
+          <mat-select formControlName="estadoAfiliacion">
+            <mat-option value="Activo">Activo</mat-option>
+            <mat-option value="Inactivo">Inactivo</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+      
+
+    </mat-grid-list>
+    
+  </form>
+
+  
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close color="warn">Volver</button>
+
+  <button mat-raised-button mat-dialog-close color="primary"
+  (click)="addEditPacientes()"
+  [disabled]="formPacientes.invalid"  
+  >{{botonAccion}}
+ 
+</button>
+</div>
+
+

@@ -1,4 +1,5 @@
 export interface Pacientes {
+    id:number,
     numeroDocumento:number,
     tipoDocumento:string,
     nombre:string,
